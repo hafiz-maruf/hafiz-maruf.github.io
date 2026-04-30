@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hafiz Maruf Akbar — International Affairs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #1a1714;
+    --paper: #f5f0e8;
+    --warm-mid: #c8b89a;
+    --accent: #2d5a3d;
+    --accent-light: #e8efe9;
+    --muted: #7a6e62;
+    --border: rgba(26,23,20,0.12);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(245,240,232,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 64px 80px 48px;
+    border-right: 0.5px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    font-weight: 500;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--muted);
+  }
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 380px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 12px; }
+  .btn-dark {
+    padding: 13px 28px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-dark:hover { opacity: 0.8; }
+  .btn-ghost {
+    padding: 13px 28px;
+    background: transparent;
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(26,23,20,0.05); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 80px 64px;
+    position: relative;
+  }
+  .hero-stat-group { display: flex; flex-direction: column; gap: 40px; }
+  .hero-stat { display: flex; flex-direction: column; gap: 8px; }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    font-weight: 500;
+  }
+  .stat-value {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+  .hero-corner-tag {
+    position: absolute;
+    bottom: 80px;
+    right: 48px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--warm-mid);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* ── SECTION WRAPPERS ── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 64px;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 24px;
+  }
+  .section-num {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-body p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-highlights { display: flex; flex-direction: column; gap: 0; }
+  .highlight-item {
+    padding: 24px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .highlight-item:first-child { border-top: 0.5px solid var(--border); }
+  .highlight-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .highlight-value {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  /* ── FOCUS AREAS ── */
+  .focus-bg { background: var(--ink); }
+  .focus-bg .section { max-width: 1100px; }
+  .focus-bg .section-num { color: rgba(245,240,232,0.35); }
+  .focus-bg .section-title { color: var(--paper); }
+  .focus-bg .section-header { border-color: rgba(245,240,232,0.12); }
+  .focus-areas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(245,240,232,0.08);
+    border: 0.5px solid rgba(245,240,232,0.08);
+  }
+  .focus-card {
+    background: var(--ink);
+    padding: 40px 36px;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .focus-card:hover { background: #232018; }
+  .focus-icon {
+    width: 36px;
+    height: 36px;
+    border: 0.5px solid rgba(245,240,232,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    font-size: 16px;
+  }
+  .focus-card h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--paper);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .focus-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.5);
+    font-weight: 300;
+  }
+
+  /* ── SKILLS ── */
+  .skills-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .skills-col { padding-right: 48px; }
+  .skills-col:last-child { padding-right: 0; padding-left: 48px; border-left: 0.5px solid var(--border); }
+  .skills-group-title {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .skill-list { list-style: none; margin-bottom: 40px; }
+  .skill-list li {
+    font-size: 15px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--border);
+    color: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 300;
+  }
+  .skill-list li span {
+    font-size: 11px;
+    color: var(--warm-mid);
+    font-weight: 400;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-list { display: flex; flex-direction: column; gap: 0; }
+  .project-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 36px;
+    align-items: start;
+    padding: 40px 0;
+    border-bottom: 0.5px solid var(--border);
+    transition: background 0.2s;
+  }
+  .project-row:first-child { border-top: 0.5px solid var(--border); }
+  .project-year {
+    font-size: 12px;
+    color: var(--warm-mid);
+    padding-top: 4px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+  .project-body h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .project-body p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 300;
+  }
+  .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 0.5px solid var(--border);
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .tag-green {
+    background: var(--accent-light);
+    border-color: rgba(45,90,61,0.2);
+    color: var(--accent);
+  }
+  .project-arrow {
+    font-size: 18px;
+    color: var(--warm-mid);
+    padding-top: 4px;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .project-row:hover .project-arrow { transform: translate(3px, -3px); color: var(--ink); }
+
+  /* ── CONTACT ── */
+  .contact-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-left h3 {
+    font-family: var(--serif);
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .contact-left h3 em { font-style: italic; color: var(--muted); }
+  .contact-left p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 0; }
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 0.5px solid var(--border);
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding-left 0.2s;
+  }
+  .contact-link:first-child { border-top: 0.5px solid var(--border); }
+  .contact-link:hover { padding-left: 8px; }
+  .contact-link-label { font-size: 13px; letter-spacing: 0.06em; font-weight: 400; }
+  .contact-link-value { font-size: 13px; color: var(--muted); font-weight: 300; }
+  .contact-right {
+    background: var(--accent);
+    padding: 48px;
+    color: var(--paper);
+  }
+  .contact-right p {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.6;
+    font-style: italic;
+    opacity: 0.9;
+    margin-bottom: 32px;
+  }
+  .contact-right .attribution {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-style: normal;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer span { font-size: 12px; color: var(--warm-mid); font-weight: 300; }
+
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    nav .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 100px 24px 48px; border-right: none; border-bottom: 0.5px solid var(--border); }
+    .hero-right { padding: 48px 24px 60px; }
+    .hero-corner-tag { display: none; }
+    .section { padding: 72px 24px; }
+    .about-grid, .skills-cols, .contact-split { grid-template-columns: 1fr; gap: 48px; }
+    .skills-col:last-child { padding-left: 0; border-left: none; border-top: 0.5px solid var(--border); padding-top: 40px; }
+    .focus-areas { grid-template-columns: 1fr; }
+    .project-row { grid-template-columns: 60px 1fr; }
+    .project-arrow { display: none; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hafiz Maruf Akbar</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#focus">Focus</a>
+    <a href="#skills">Skills</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">International Affairs · Public Policy · Singapore</p>
+    <h1 class="hero-name">Hafiz<br>Maruf<br><em>Akbar</em></h1>
+    <p class="hero-desc">
+      Master in International Affairs candidate at the Lee Kuan Yew School of Public Policy, NUS — bridging research and real-world impact across ASEAN governance, disaster resilience, and sustainable development.
+    </p>
+    <div class="hero-btns">
+      <a href="#work" class="btn-dark">View my work</a>
+      <a href="#contact" class="btn-ghost">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-group">
+      <div class="hero-stat">
+        <span class="stat-label">Programme</span>
+        <span class="stat-value">Master in International Affairs</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Institution</span>
+        <span class="stat-value">Lee Kuan Yew School of Public Policy, NUS</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Specialisation</span>
+        <span class="stat-value">Public Policy · Sustainable Development · Geopolitical Strategy</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Region of Focus</span>
+        <span class="stat-value">Southeast Asia &amp; ASEAN</span>
+      </div>
+    </div>
+    <div class="hero-corner-tag">Singapore · 2024–2026</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about">
+  <div class="section fade-up">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>I am a Master in International Affairs candidate at the Lee Kuan Yew School of Public Policy, National University of Singapore — one of Asia's foremost institutions for governance and public policy education.</p>
+        <p>My work sits at the intersection of international relations, sustainable development, and geopolitical strategy, with a particular focus on ASEAN regional governance, disaster resilience, and the intersection of economic development and environmental sustainability.</p>
+        <p>I am passionate about translating policy ideas into real-world impact through rigorous research, stakeholder engagement, and international collaboration — connecting academic insight to the practitioners and institutions that shape our region.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="highlight-label">Education</div>
+          <div class="highlight-value">Master in International Affairs<br>Lee Kuan Yew School of Public Policy</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-label">Specialisation</div>
+          <div class="highlight-value">Public Policy &amp; Sustainable Development</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-label">Geographic Focus</div>
+          <div class="highlight-value">Southeast Asia &amp; ASEAN Region</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-label">Based in</div>
+          <div class="highlight-value">Singapore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOCUS AREAS -->
+<div id="focus" class="focus-bg">
+  <div class="section fade-up">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title" style="color: var(--paper);">Areas of Focus</h2>
+    </div>
+    <div class="focus-areas">
+      <div class="focus-card">
+        <div class="focus-icon">◈</div>
+        <h3>ASEAN Regional Governance</h3>
+        <p>Examining multilateral cooperation, regional integration, and institutional frameworks that shape how Southeast Asian nations collaborate on shared challenges.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">◉</div>
+        <h3>Disaster Resilience</h3>
+        <p>Researching policy frameworks for disaster risk reduction, humanitarian response coordination, and building climate-adaptive governance systems across the region.</p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">◎</div>
+        <h3>Sustainable Development</h3>
+        <p>Exploring the intersection of economic growth and environmental sustainability, with a focus on green transitions, development finance, and SDG implementation in Asia.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div id="skills">
+  <div class="section fade-up">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Skills &amp; Expertise</h2>
+    </div>
+    <div class="skills-cols">
+      <div class="skills-col">
+        <p class="skills-group-title">Policy &amp; Research</p>
+        <ul class="skill-list">
+          <li>Policy Analysis &amp; Design <span>Advanced</span></li>
+          <li>Qualitative Research <span>Advanced</span></li>
+          <li>Stakeholder Mapping <span>Proficient</span></li>
+          <li>Academic Writing &amp; Reporting <span>Advanced</span></li>
+          <li>Programme Evaluation <span>Proficient</span></li>
+        </ul>
+        <p class="skills-group-title">International Affairs</p>
+        <ul class="skill-list">
+          <li>Geopolitical Strategy <span>Advanced</span></li>
+          <li>International Negotiations <span>Proficient</span></li>
+          <li>Diplomatic Protocol <span>Proficient</span></li>
+        </ul>
+      </div>
+      <div class="skills-col">
+        <p class="skills-group-title">Thematic Expertise</p>
+        <ul class="skill-list">
+          <li>ASEAN &amp; Regional Governance <span>Advanced</span></li>
+          <li>Disaster Risk Reduction <span>Advanced</span></li>
+          <li>Sustainable Development <span>Proficient</span></li>
+          <li>Climate &amp; Environment Policy <span>Proficient</span></li>
+          <li>Development Finance <span>Familiar</span></li>
+        </ul>
+        <p class="skills-group-title">Tools &amp; Methods</p>
+        <ul class="skill-list">
+          <li>Data Analysis &amp; Visualization <span>Proficient</span></li>
+          <li>Strategic Planning <span>Proficient</span></li>
+          <li>Public Engagement <span>Advanced</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORK / PROJECTS -->
+<div id="work" style="border-top: 0.5px solid var(--border);">
+  <div class="section fade-up">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Work &amp; Research</h2>
+    </div>
+    <div class="projects-list">
+      <div class="project-row">
+        <div class="project-year">2025</div>
+        <div class="project-body">
+          <h3>ASEAN Disaster Governance &amp; Resilience Frameworks</h3>
+          <p>A policy research project examining how ASEAN member states coordinate disaster response mechanisms and the institutional gaps that hinder effective regional resilience — with recommendations for enhanced multilateral frameworks.</p>
+          <div class="project-tags">
+            <span class="tag tag-green">Flagship Research</span>
+            <span class="tag">ASEAN</span>
+            <span class="tag">Disaster Resilience</span>
+            <span class="tag">Governance</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-row">
+        <div class="project-year">2025</div>
+        <div class="project-body">
+          <h3>Green Transitions &amp; Economic Development in Southeast Asia</h3>
+          <p>Exploring the tension between rapid economic growth and environmental sustainability goals, analysing how emerging ASEAN economies can leverage green finance and policy instruments to achieve development without ecological cost.</p>
+          <div class="project-tags">
+            <span class="tag">Sustainable Development</span>
+            <span class="tag">Climate Policy</span>
+            <span class="tag">Southeast Asia</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-row">
+        <div class="project-year">2024</div>
+        <div class="project-body">
+          <h3>Geopolitical Strategy &amp; Regional Order in Asia</h3>
+          <p>Analysing shifting geopolitical dynamics in the Indo-Pacific and their implications for ASEAN centrality, examining how smaller states navigate between major-power competition while preserving strategic autonomy.</p>
+          <div class="project-tags">
+            <span class="tag">Geopolitics</span>
+            <span class="tag">Indo-Pacific</span>
+            <span class="tag">Policy Brief</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" style="background: #f0ebe0; border-top: 0.5px solid var(--border);">
+  <div class="section fade-up">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Get in Touch</h2>
+    </div>
+    <div class="contact-split">
+      <div class="contact-left">
+        <h3>Let's work<br><em>together</em></h3>
+        <p>Whether you're interested in collaborating on policy research, discussing ASEAN governance, or exploring professional opportunities — I'd love to connect.</p>
+        <div class="contact-links">
+          <a href="mailto:hafiz.maruf@u.nus.edu" class="contact-link">
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value">hafiz.maruf@u.nus.edu</span>
+          </a>
+          <a href="https://www.linkedin.com/in/hafiz-maruf-akbar" class="contact-link">
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-value">Hafiz Maruf Akbar</span>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-label">Location</span>
+            <span class="contact-link-value">Singapore</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <p>"Good policy is not just about ideas — it is about the courage to translate knowledge into action for those who need it most."</p>
+        <p class="attribution">— Hafiz Maruf Akbar</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Hafiz Maruf Akbar</span>
+  <span>Lee Kuan Yew School of Public Policy · National University of Singapore</span>
+  <span>Built with purpose</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
