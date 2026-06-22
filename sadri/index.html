@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SADRI — Southeast Asia Disaster Resilience Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E7ECEE; --panel:#FFFFFF; --ink:#0E222C; --ink2:#1C3A47;
+  --muted:#5C6B72; --line:#D6DDE1; --accent:#0E7C7B;
+  --b-vhigh:#1B7A5A; --b-high:#54A57E; --b-mod:#E0AE3C; --b-low:#DD7E3E; --b-vlow:#C24A38;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;
+  -webkit-font-smoothing:antialiased;padding:0 0 60px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* header */
+header{background:var(--ink);color:#EAF1F2;padding:26px 0 24px;margin-bottom:22px;
+  border-bottom:3px solid var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:#7FB7B6;margin:0 0 8px}
+h1{font-size:30px;font-weight:700;letter-spacing:-.02em;margin:0 0 10px;line-height:1.08}
+h1 .x{color:#7FB7B6}
+.thesis{max-width:760px;font-size:14.5px;color:#C3D2D5;margin:0}
+.thesis b{color:#EAF1F2;font-weight:600}
+
+/* panels */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px}
+.panel h2{font-size:12px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 14px;font-weight:600}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+.row2{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:18px}
+
+/* weights */
+.weights{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:start}
+.wq{display:flex;flex-direction:column;gap:7px}
+.wq .lab{font-size:12px;font-weight:600;color:var(--ink2);min-height:32px;line-height:1.25}
+.wq .lab span{display:block;font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.04em}
+.wq input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
+.wq .pct{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--ink)}
+.wq .pct small{font-size:11px;color:var(--muted)}
+.wbar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;
+  padding-top:13px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.wbar b{font-family:var(--mono);color:var(--ink)}
+button.reset{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--ink);color:#EAF1F2;border:0;border-radius:6px;padding:7px 13px;cursor:pointer}
+button.reset:hover{background:var(--accent)}
+
+/* ranking */
+.rank-list{position:relative}
+.rrow{display:grid;grid-template-columns:26px 132px 1fr 52px;align-items:center;gap:10px;
+  padding:7px 6px;border-radius:7px;cursor:pointer;will-change:transform}
+.rrow:hover{background:#F2F5F6}
+.rrow.sel{background:#EAF3F2;box-shadow:inset 0 0 0 1.5px var(--accent)}
+.rrow .rk{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right}
+.rrow .nm{font-size:13.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track{height:20px;background:#EEF1F2;border-radius:5px;overflow:hidden}
+.fill{height:100%;border-radius:5px;transition:width .55s cubic-bezier(.22,1,.36,1),background .3s}
+.rrow .sc{font-family:var(--mono);font-size:14px;font-weight:600;text-align:right}
+
+/* detail / radar */
+.dhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+.dhead .cn{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.badge{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.04em;
+  padding:4px 9px;border-radius:20px;color:#fff;white-space:nowrap}
+.dscore{font-family:var(--mono);font-size:13px;color:var(--muted);margin:0 0 8px}
+.dscore b{color:var(--ink);font-size:15px}
+.radar-wrap{display:flex;justify-content:center;padding:4px 0 2px}
+.pleg{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:center;margin-top:6px;font-size:11px;color:var(--muted)}
+.pleg i{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:-1px}
+.prows{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.prow{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;font-size:12px;padding:3px 0}
+.prow .pn{color:var(--ink2)}
+.prow .pv{font-family:var(--mono);font-weight:600;text-align:right}
+
+/* heatmap */
+.hm{width:100%;border-collapse:collapse;font-size:12px}
+.hm th{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;padding:6px 4px;text-align:center;border-bottom:1px solid var(--line)}
+.hm th.cnh{text-align:left;width:150px}
+.hm td{padding:0;text-align:center}
+.hm td.cn{text-align:left;font-weight:500;padding-left:4px;font-size:12.5px}
+.hm .cell{height:30px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:500;color:#0E222C;border-radius:4px;margin:2px;
+  transition:background .4s}
+.hm td.idx .cell{font-weight:700}
+.legend{display:flex;align-items:center;gap:0;margin-top:14px;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.legend .scale{height:9px;flex:1;border-radius:5px;margin:0 9px;
+  background:linear-gradient(90deg,var(--b-vlow),var(--b-low),var(--b-mod),var(--b-high),var(--b-vhigh))}
+.foot{margin-top:18px;font-size:11.5px;color:var(--muted);line-height:1.55}
+.foot b{color:var(--ink2)}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.weights{grid-template-columns:repeat(2,1fr)}
+  .rrow{grid-template-columns:24px 110px 1fr 46px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Southeast Asia · Disaster Resilience Index</p>
+    <h1>SADRI <span class="x">/</span> eleven states, five pillars, one adjustable lens</h1>
+    <p class="thesis">Resilience is not only about exposure to hazards, but about the <b>capability of institutions</b>
+      to anticipate risk, coordinate stakeholders, allocate resources and deliver response. Move the pillar weights below
+      and watch the ranking respond — the order is a function of what you choose to value.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="row2">
+    <div class="panel">
+      <h2>Pillar weights — drag to re-weight the index</h2>
+      <div class="weights" id="weights"></div>
+      <div class="wbar">
+        <span>Weights are normalised to 100%. Default: 20 / 20 / 25 / 20 / 15.</span>
+        <button class="reset" id="reset">Reset to default</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-bottom:18px">
+    <div class="panel">
+      <h2>Resilience ranking — click a country to inspect</h2>
+      <div class="rank-list" id="ranks"></div>
+    </div>
+    <div class="panel">
+      <h2>Country profile</h2>
+      <div class="dhead"><span class="cn" id="d-name">—</span><span class="badge" id="d-badge"></span></div>
+      <p class="dscore">SADRI score <b id="d-score">—</b> · regional rank <span id="d-rank">—</span> of 11</p>
+      <div class="radar-wrap"><svg id="radar" width="300" height="250" viewBox="0 0 300 250" role="img" aria-label="Pillar profile"></svg></div>
+      <div class="pleg">
+        <span><i style="background:var(--accent)"></i>Selected country</span>
+        <span><i style="background:#9AA8AE"></i>Regional average</span>
+      </div>
+      <div class="prows" id="d-pillars"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Pillar heatmap — every score at a glance</h2>
+    <table class="hm" id="heat"><thead></thead><tbody></tbody></table>
+    <div class="legend"><span>0 · very low</span><span class="scale"></span><span>very high · 100</span></div>
+    <p class="foot"><b>Reading the board.</b> Watch Timor-Leste and the Philippines: Timor has low hazard exposure yet sits near the
+      bottom because institutional, preparedness and adaptive capacity are thin — exposure isn't destiny. The Philippines is the
+      most hazard-exposed state in the region yet holds mid-table, because response and coping capacity partly compensate.
+      <br><br><b>Data status.</b> Built on indicative starter values calibrated to the source indices (INFORM, World Bank WGI,
+      ND-GAIN, ADINet/EM-DAT). Replace with verified figures before citing.</p>
+  </div>
+</div>
+
+<script>
+const PILLARS=[
+  {key:"P1",name:"Hazard & Exposure",def:20},
+  {key:"P2",name:"Social & Economic Vulnerability",def:20},
+  {key:"P3",name:"Institutional & Governance Capability",def:25},
+  {key:"P4",name:"Preparedness & Response Capacity",def:20},
+  {key:"P5",name:"Adaptive & Transformative Capacity",def:15},
+];
+// pillar scores [P1,P2,P3,P4,P5] from the SADRI model (normalised 0-100)
+const DATA=[
+  {c:"Singapore",iso:"SG",s:[100,85.7,100,100,100]},
+  {c:"Brunei Darussalam",iso:"BN",s:[97.0,77.8,71.6,59.3,27.8]},
+  {c:"Malaysia",iso:"MY",s:[79.4,66.3,69.2,66.2,55.2]},
+  {c:"Thailand",iso:"TH",s:[54.5,57.7,49.5,70.4,56.1]},
+  {c:"Indonesia",iso:"ID",s:[51.0,44.8,45.1,50.8,48.3]},
+  {c:"Viet Nam",iso:"VN",s:[19.5,44.4,42.1,56.0,56.3]},
+  {c:"Philippines",iso:"PH",s:[8.3,33.7,37.9,59.0,54.7]},
+  {c:"Lao PDR",iso:"LA",s:[67.0,42.1,18.9,11.9,18.3]},
+  {c:"Cambodia",iso:"KH",s:[46.7,41.1,12.7,25.1,22.1]},
+  {c:"Timor-Leste",iso:"TL",s:[82.3,22.3,17.6,9.5,15.9]},
+  {c:"Myanmar",iso:"MM",s:[41.4,16.8,0.3,1.3,2.9]},
+];
+const regAvg=PILLARS.map((_,i)=>DATA.reduce((a,d)=>a+d.s[i],0)/DATA.length);
+
+let weights=PILLARS.map(p=>p.def);
+let selected="Singapore";
+
+function band(v){
+  if(v>=80)return{l:"Very high resilience",c:getCss('--b-vhigh')};
+  if(v>=65)return{l:"High resilience",c:getCss('--b-high')};
+  if(v>=50)return{l:"Moderate resilience",c:getCss('--b-mod')};
+  if(v>=35)return{l:"Low resilience",c:getCss('--b-low')};
+  return{l:"Very low resilience",c:getCss('--b-vlow')};
+}
+function getCss(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function lerp(a,b,t){return a+(b-a)*t;}
+function hx(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+function mix(c1,c2,t){const a=hx(c1),b=hx(c2);return`rgb(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))})`;}
+function heatColor(v){ // 0..100 -> red..amber..green (tints for legibility)
+  const stops=[[0,"#E6B5AD"],[35,"#EAC9A2"],[50,"#F0DCA0"],[65,"#C7DFC0"],[100,"#A9D2B6"]];
+  for(let i=0;i<stops.length-1;i++){if(v<=stops[i+1][0]){const t=(v-stops[i][0])/(stops[i+1][0]-stops[i][0]);return mix(stops[i][1],stops[i+1][1],t);}}
+  return stops[stops.length-1][1];
+}
+function normW(){const s=weights.reduce((a,b)=>a+b,0)||1;return weights.map(w=>w/s);}
+function indexOf(d){const w=normW();return d.s.reduce((a,v,i)=>a+v*w[i],0);}
+function ranked(){return DATA.map(d=>({...d,idx:indexOf(d)})).sort((a,b)=>b.idx-a.idx);}
+
+/* ---------- weights UI ---------- */
+const wEl=document.getElementById('weights');
+PILLARS.forEach((p,i)=>{
+  const d=document.createElement('div');d.className='wq';
+  d.innerHTML=`<div class="lab">${p.name}<span>${p.key}</span></div>
+    <div class="pct" id="pct${i}"></div>
+    <input type="range" min="0" max="40" step="1" value="${weights[i]}" id="w${i}" aria-label="${p.name} weight">`;
+  wEl.appendChild(d);
+  d.querySelector('input').addEventListener('input',e=>{weights[i]=+e.target.value;update();});
+});
+document.getElementById('reset').addEventListener('click',()=>{
+  weights=PILLARS.map(p=>p.def);
+  PILLARS.forEach((p,i)=>{document.getElementById('w'+i).value=weights[i];});
+  update();
+});
+
+/* ---------- ranking (FLIP) ---------- */
+const rankEl=document.getElementById('ranks');
+const rowMap={};
+DATA.forEach(d=>{
+  const r=document.createElement('div');r.className='rrow';r.dataset.c=d.c;
+  r.innerHTML=`<div class="rk"></div><div class="nm">${d.c}</div>
+    <div class="track"><div class="fill"></div></div><div class="sc"></div>`;
+  r.addEventListener('click',()=>{selected=d.c;update();});
+  rowMap[d.c]=r;rankEl.appendChild(r);
+});
+const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+function renderRanks(rk){
+  const first={};Object.values(rowMap).forEach(r=>first[r.dataset.c]=r.getBoundingClientRect().top);
+  rk.forEach((d,i)=>{
+    const r=rowMap[d.c];rankEl.appendChild(r);
+    const b=band(d.idx);
+    r.querySelector('.rk').textContent=i+1;
+    r.querySelector('.sc').textContent=d.idx.toFixed(1);
+    const fill=r.querySelector('.fill');
+    fill.style.width=Math.max(2,d.idx)+'%';fill.style.background=b.c;
+    r.classList.toggle('sel',d.c===selected);
+  });
+  if(!reduce){
+    Object.values(rowMap).forEach(r=>{
+      const last=r.getBoundingClientRect().top,dy=first[r.dataset.c]-last;
+      if(dy){r.style.transition='none';r.style.transform=`translateY(${dy}px)`;
+        requestAnimationFrame(()=>{r.style.transition='transform .5s cubic-bezier(.22,1,.36,1)';r.style.transform='';});}
+    });
+  }
+}
+
+/* ---------- radar ---------- */
+const R=88,CX=150,CY=120;
+const svg=document.getElementById('radar');
+function pt(i,val){const ang=-Math.PI/2+i*2*Math.PI/5;const r=R*val/100;
+  return[CX+r*Math.cos(ang),CY+r*Math.sin(ang)];}
+function poly(vals){return vals.map((v,i)=>pt(i,v).join(',')).join(' ');}
+function renderRadar(d){
+  let g='';
+  [25,50,75,100].forEach(ring=>{g+=`<polygon points="${poly([ring,ring,ring,ring,ring])}" fill="none" stroke="#E2E8EA" stroke-width="1"/>`;});
+  for(let i=0;i<5;i++){const[x,y]=pt(i,100);g+=`<line x1="${CX}" y1="${CY}" x2="${x}" y2="${y}" stroke="#E2E8EA" stroke-width="1"/>`;}
+  g+=`<polygon points="${poly(regAvg)}" fill="rgba(154,168,174,.25)" stroke="#9AA8AE" stroke-width="1.5"/>`;
+  const ac=getCss('--accent');
+  g+=`<polygon points="${poly(d.s)}" fill="rgba(14,124,123,.22)" stroke="${ac}" stroke-width="2"/>`;
+  for(let i=0;i<5;i++){const[x,y]=pt(i,d.s[i]);g+=`<circle cx="${x}" cy="${y}" r="3" fill="${ac}"/>`;}
+  const labels=["P1","P2","P3","P4","P5"];
+  for(let i=0;i<5;i++){const[x,y]=pt(i,124);
+    g+=`<text x="${x}" y="${y}" font-family="var(--mono)" font-size="10" fill="#5C6B72" text-anchor="middle" dominant-baseline="middle">${labels[i]}</text>`;}
+  svg.innerHTML=g;
+}
+
+/* ---------- detail ---------- */
+function renderDetail(rk){
+  const d=DATA.find(x=>x.c===selected);
+  const idx=indexOf(d),b=band(idx);
+  const pos=rk.findIndex(x=>x.c===selected)+1;
+  document.getElementById('d-name').textContent=d.c;
+  const bd=document.getElementById('d-badge');bd.textContent=b.l;bd.style.background=b.c;
+  document.getElementById('d-score').textContent=idx.toFixed(1);
+  document.getElementById('d-rank').textContent=pos;
+  renderRadar(d);
+  const w=normW();
+  document.getElementById('d-pillars').innerHTML=PILLARS.map((p,i)=>
+    `<div class="prow"><span class="pn">${p.name} <span style="color:#9AA8AE;font-family:var(--mono)">${Math.round(w[i]*100)}%</span></span><span class="pv">${d.s[i].toFixed(1)}</span></div>`).join('');
+}
+
+/* ---------- heatmap ---------- */
+const heat=document.getElementById('heat');
+function renderHeat(rk){
+  const cols=["P1","P2","P3","P4","P5"];
+  heat.querySelector('thead').innerHTML=`<tr><th class="cnh">Country</th>${cols.map(c=>`<th>${c}</th>`).join('')}<th>SADRI</th></tr>`;
+  heat.querySelector('tbody').innerHTML=rk.map(d=>{
+    const cells=d.s.map(v=>`<td><div class="cell" style="background:${heatColor(v)}">${v.toFixed(0)}</div></td>`).join('');
+    const ic=`<td class="idx"><div class="cell" style="background:${heatColor(d.idx)}">${d.idx.toFixed(1)}</div></td>`;
+    return `<tr><td class="cn">${d.c}</td>${cells}${ic}</tr>`;
+  }).join('');
+}
+
+/* ---------- master update ---------- */
+function update(){
+  const w=normW();
+  PILLARS.forEach((p,i)=>{document.getElementById('pct'+i).innerHTML=Math.round(w[i]*100)+'<small>%</small>';});
+  const rk=ranked();
+  renderRanks(rk);
+  renderDetail(rk);
+  renderHeat(rk);
+}
+update();
+</script>
+</body>
+</html>
